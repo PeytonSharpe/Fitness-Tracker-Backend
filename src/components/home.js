@@ -1,4 +1,3 @@
-// copied from Stranger's Things
 import React from 'react';
 import { loginUser } from '../api';
 import { Link } from 'react-router-dom';

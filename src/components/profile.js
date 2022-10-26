@@ -1,4 +1,3 @@
-// copied from Stranger's Things
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -12,7 +11,7 @@ const Profile = ({ user, username }) => {
                 <h1>Welcome {`${username}`}!</h1>
                 <h2>Create a new routine</h2>
                 <button>
-                    <Link to='/myRoutine/create-routine'>Add Routine</Link>
+                    <Link to='/Myroutine/create-routine'>Add Routine</Link>
                 </button>
             </div>
         </div>

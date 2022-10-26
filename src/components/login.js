@@ -1,4 +1,3 @@
-// copied from Stranger's Things
 import React, { useState } from 'react';
 import { loginUser } from '../api';
 
@@ -18,7 +17,7 @@ const Login = ({ setToken, navigate }) => {
     }
     return (
         <div>
-            <h2>Welcome Registered FitnessTrackr!</h2>
+            <h2>Welcome Registered FitnessTrackr User!</h2>
             <form onSubmit={(event) => {
                 event.preventDefault();
                 handleSubmit();

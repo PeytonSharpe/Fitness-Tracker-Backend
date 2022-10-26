@@ -1,9 +1,9 @@
 // copied from Stranger's Things
-export { default as Navbar } from './navbar';
-export { default as Profile } from './profile';
-export { default as Home } from './home';
-export { default as Register } from './register';
-export { default as Login } from './login';
-export { default as Routines} from './routines';
-export { default as Activities } from './activities';
-export { default as MyRoutines } from './myRoutines';
+export { default as Navbar } from './Navbar';
+export { default as Profile } from './Profile';
+export { default as Home } from './Home';
+export { default as Register } from './Register';
+export { default as Login } from './Login';
+// export { default as Routines} from './Routines';
+// export { default as Activities } from './Activities';
+// export { default as MyRoutines } from './Myroutines';

@@ -1,4 +1,3 @@
-// copied from Stranger's Things
 import React, { useState } from 'react';
 import { registerUser } from '../api';
 const Register = ({ setToken, navigate }) => {

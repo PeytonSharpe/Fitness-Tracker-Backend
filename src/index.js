@@ -3,21 +3,20 @@ import ReactDOM from 'react-dom/client';
 import { Route, BrowserRouter, Routes, useNavigate } from 'react-router-dom';
 import './style.css';
 import {
-    activites,
-    home,
-    index,
-    login,
-    myRoutine,
-    navbar,
-    profile,
-    register,
-    routine
+    Activites,
+    Home,
+    Login,
+    Myroutine,
+    Navbar,
+    Profile,
+    Register,
+    Routines
     } from './components';
 
-import {
-    getRoutines,
-    getUserDetails
-} from './api';
+// import {
+//     getRoutines,
+//     getUserDetails
+// } from './api';
 
 // const App = () => {
     // return(
@@ -26,9 +25,9 @@ import {
 // }
 
 const App = () => {
-    const [posts, setPosts] = useState([]);
     const [token, setToken] = useState('');
     const [user, setUser] = useState({});
+    // const [routines, setRoutines] = useState([]);
     
     const navigate = useNavigate();
 
@@ -38,10 +37,10 @@ const App = () => {
         setUser({});
     }
 
-    async function fetchRoutines() {
-        const results = await getRoutines(token)
-        setRoutines(results.data.posts);
-    }
+    // async function fetchRoutines() {
+    //     const results = await getRoutines(token)
+    //     setRoutines(results.data.posts);
+    // }
 
     async function getMe() {
         const storedToken = window.localStorage.getItem('token');
@@ -62,9 +61,9 @@ const App = () => {
         }
     }
 
-    useEffect(() => {
-        fetchRoutines()
-    }, [token])
+    // useEffect(() => {
+    //     fetchRoutines()
+    // }, [token])
 
     useEffect(() => {
         getMe();
@@ -80,37 +79,30 @@ const App = () => {
                     element={<Home 
                     />}
                 />
-//                 <Route
+                 {/* <Route
                     path='/'
                     element={<Routines
                         token={token}
                         routines={routines}
                         fetchRoutines={fetchRoutines}
                     />}
-                />
-                <Route
+                /> */}
+                {/* <Route
                     exact path='/routines/create-routine'
-                    element={<CreateRoutine
+                    element={<createRoutine
                         token={token}
                         fetchPosts={fetchRoutines}
                         navigate={navigate}
                     />}
-                />
-//                 <Route
-                    exact path='/routines/edit-routine/:routineID'
-                    element={<EditRoutine
-                        routines={routines}
-                        token={token}
-                    />}
-                />
-//                 <Route
+                /> */}
+                 <Route
                     path='/profile'
                     element={<Profile 
                         user={user}
                         token={token}
                     />}
                 />
-//                 <Route
+                 <Route
                     path='/register'
                     element={<Register
                         setToken={setToken}
@@ -118,7 +110,7 @@ const App = () => {
                         navigate={navigate}
                     />}
                 />
-//                 <Route
+                 <Route
                     path='/login'
                     element={<Login
                         setToken={setToken}
