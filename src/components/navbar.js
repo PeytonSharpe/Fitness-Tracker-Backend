@@ -9,6 +9,13 @@ const Navbar = ({ logout, token }) => {
             applied: true
         }
     };
+    const myRoutinesTarget = {
+        pathname: "/Myroutines",
+        key: Math.random(),
+        state: {
+            applied: true
+        }
+    };
 
     return (
         <header>
@@ -16,13 +23,15 @@ const Navbar = ({ logout, token }) => {
                 <Link to='/'>Home</Link>
                 <Link to={routinesTarget}>Routines</Link>
                 <Link to='/profile'>Profile</Link>
+                <Link to='/activities'>Activities</Link>
+                <Link to={myRoutinesTarget}>Myroutines</Link>
                 {
                     token ? (
                         <Link to='/' onClick={() => logout()}>Logout</Link>
                     ) : (
                         
                             // <Link to='/register'>Register</Link>
-                            <Link to='/login'>Login</Link>
+                            <Link to='/'>Logout</Link>
                     )
                 }
             </nav>

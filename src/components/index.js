@@ -5,4 +5,5 @@ export { default as Register } from './Register';
 export { default as Login } from './Login';
 export { default as Routines} from './Routines';
 export { default as Activities } from './Activities';
-export { default as MyRoutines } from './Myroutines';
+export { default as MyRoutinesList } from './My_routines';
+export { default as CreateNewRoutine} from './CreateNewRoutine';

@@ -3,14 +3,16 @@ import ReactDOM from 'react-dom/client';
 import { Route, BrowserRouter, Routes, useNavigate } from 'react-router-dom';
 import './style.css';
 import {
-    Activites,
+    Activities,
     Home,
     Login,
-    Myroutine,
+    MyRoutines,
     Navbar,
     Profile,
     Register,
     Routines,
+    CreateNewRoutine,
+    MyRoutinesList,
     } from './components';
 
 import {
@@ -18,11 +20,6 @@ import {
     getUserDetails
 } from './api';
 
-// const App = () => {
-    // return(
-        // <h1> Fitness Tracker </h1>
-    // )
-// }
 
 const App = () => {
     const [token, setToken] = useState('');
@@ -39,7 +36,7 @@ const App = () => {
 
     async function fetchRoutines() {
         const results = await getRoutines(token)
-        setRoutines(results.data.posts);
+        setRoutines(results.data.routines);
     }
 
     async function getMe() {
@@ -87,14 +84,31 @@ const App = () => {
                         fetchRoutines={fetchRoutines}
                     />} 
                 />
-                <Route
-                    exact path='/routines/create-routine'
-                    element={<createRoutine
+                 <Route
+                    path='/activities'
+                    element={<Activities
                         token={token}
-                        fetchPosts={fetchRoutines}
+                        activities={Activities}
+                    />} 
+                />
+                <Route
+                    path='/My_routines'
+                    element={<myRoutines
+                        token={token}
+                        myRoutines={routines}
                         navigate={navigate}
+                        fetchRoutines={fetchRoutines}
                     />}
-                /> 
+                />
+                <Route
+                    path='/CreateNewRoutine'
+                    element={<createNewRoutine
+                        token={token}
+                        createNewRoutine={CreateNewRoutine}
+                        navigate={navigate}
+                        fetchRoutines={fetchRoutines}
+                    />}
+                />
                  <Route
                     path='/profile'
                     element={<Profile 

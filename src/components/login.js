@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { loginUser } from '../api';
 import { Link } from 'react-router-dom';
+import { navigate } from 'react-router-dom';
 
 
 const Login = ({ setToken, navigate }) => {
@@ -8,7 +9,7 @@ const Login = ({ setToken, navigate }) => {
     const [password, setPassword] = useState('');
 
     const handleSubmit = async () => {
-        const result = await loginUser(username, password);
+        const result = await registerUser(username, password);
         if (result.success) {
             setToken(result.data.token);
             window.localStorage.setItem('token', result.data.token);
@@ -19,7 +20,7 @@ const Login = ({ setToken, navigate }) => {
     }
     return (
         <div>
-            <h2>Welcome Registered FitnessTrackr User!</h2>
+            <h2>Welcome Back!  Please Login</h2>
             <form onSubmit={(event) => {
                 event.preventDefault();
                 handleSubmit();
@@ -32,7 +33,8 @@ const Login = ({ setToken, navigate }) => {
                     type='password'
                     placeholder='Enter Password'
                     onChange={(event) => setPassword(event.target.value)} />
-                <button type='submit'>Submit</button>
+                <button type='submit'><Link to='/profile'>Submit</Link></button>
+                
             </form>
         </div>
     )
