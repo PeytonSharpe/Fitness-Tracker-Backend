@@ -6,13 +6,12 @@ import {
     Activities,
     Home,
     Login,
-    MyRoutines,
+    My_routines,
     Navbar,
     Profile,
     Register,
     Routines,
     CreateNewRoutine,
-    MyRoutinesList,
     } from './components';
 
 import {
@@ -35,8 +34,8 @@ const App = () => {
     }
 
     async function fetchRoutines() {
-        const results = await getRoutines(token)
-        setRoutines(results.data.routines);
+        const results = await getRoutines()
+        setRoutines(results.data);
     }
 
     async function getMe() {
@@ -58,13 +57,13 @@ const App = () => {
         }
     }
 
-    useEffect(() => {
-        fetchRoutines()
-    }, [token])
+    // useEffect(() => {
+    //     fetchRoutines()
+    // }, [token])
 
-    useEffect(() => {
-        getMe();
-    }, [token])
+    // useEffect(() => {
+    //     getMe();
+    // }, [token])
 
  
     return (
@@ -93,9 +92,9 @@ const App = () => {
                 />
                 <Route
                     path='/My_routines'
-                    element={<myRoutines
+                    element={<Routines
                         token={token}
-                        myRoutines={routines}
+                        My_routines={My_routines}
                         navigate={navigate}
                         fetchRoutines={fetchRoutines}
                     />}

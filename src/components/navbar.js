@@ -10,7 +10,7 @@ const Navbar = ({ logout, token }) => {
         }
     };
     const myRoutinesTarget = {
-        pathname: "/Myroutines",
+        pathname: "/My_routines",
         key: Math.random(),
         state: {
             applied: true

@@ -18,7 +18,7 @@ export const registerUser = async (username, password) => {
     const result = await response.json();
     return result;
     
-  } catch(ex) {
+  } catch(error) {
     console.log("error registering user")
   }
 }
@@ -26,22 +26,24 @@ export const registerUser = async (username, password) => {
 //POST /api/users/login
 export const loginUser = async (username, password) => {
   try {
-    const response = await fetch(`${baseURL}/users/login`,{
+    const response = await fetch(`${baseURL}/users/register`,{
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({
+        user: {
           username,
           password
+        }
       })
     })
     
     const result = await response.json();
     return result;
     
-  } catch(ex) {
+  } catch(error) {
     console.log("error logging in user")
   }
 }
@@ -59,7 +61,7 @@ export const getUserDetails = async (token) => {
     const result = await response.json();
     return result;
     
-  } catch(ex) {
+  } catch(error) {
     console.log('error getting users details')
   }
 }
@@ -74,7 +76,7 @@ export const getAllRoutines = async () => {
     });
     const results = await response.json();
     return results;
-  } catch (ex) {
+  } catch (error) {
     console.error('error getting all routines')
   }
 }
@@ -89,7 +91,7 @@ export const getAllActivities = async () => {
     });
     const results = await response.json();
     return results;
-  } catch (ex) {
+  } catch (error) {
     console.error('error getting all activities')
   }
 }
@@ -111,7 +113,7 @@ export const createActivity = async (token, {name, description})=> {
     
     const result = await response.json();
     return result;
-  } catch(ex) {
+  } catch(error) {
     console.log('error creating activity')
   }
 }
@@ -136,7 +138,7 @@ export const updateActivity = async (token, { activityId, activityName, descript
     
     const result = await response.json();
     return result;  
-  } catch(ex) {
+  } catch(error) {
     console.log('error updating activity')
   }
 }
@@ -151,7 +153,7 @@ export const getActivities = async () =>  {
     });
     const result = await response.json();
     return result;
-  } catch (ex) {
+  } catch (error) {
     console.log('error getting activities')
   }
 }
@@ -188,7 +190,7 @@ export const createRoutine = async (token, { name, goal, isPublic }) => {
     })
     const result = await response.json();
     return result;
-  } catch (ex) {
+  } catch (error) {
     console.error('error creating routine')
   }
 }
@@ -215,7 +217,7 @@ export const updateRoutine = async (token, { routineId, creatorId, isPublic, rou
     
     const result = await response.json();
     return result;  
-  } catch(ex) {
+  } catch(error) {
     console.log('error updating routine')
   }
 }
@@ -232,7 +234,7 @@ export const deleteRoutine = async (token) => {
 })
     const data = await response.json();
     return data;
-  } catch(ex) {
+  } catch(error) {
     console.log('error deleting routine')
   }
 }
@@ -255,7 +257,7 @@ export const routineActivity = async (token, {activityId, count, duration})=> {
     
     const result = await response.json();
     return result;
-  } catch(ex) {
+  } catch(error) {
     console.log('error attaching activity to routine')
   }
 }
@@ -281,7 +283,7 @@ export const updateRoutine_activity = async (token, { activityId, routineId, cou
     
     const result = await response.json();
     return result;  
-  } catch(ex) {
+  } catch(error) {
     console.log('error updating activity')
   }
 }
@@ -298,7 +300,7 @@ export const deleteActivity = async (token) => {
 })
     const data = await response.json();
     return data;
-  } catch(ex) {
+  } catch(error) {
     console.log('error deleting activity')
   }
 }

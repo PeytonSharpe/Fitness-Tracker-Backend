@@ -1,15 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getActivities, getRoutines, getRoutinesByUser } from "../api";
 import { useState, useEffect } from 'react';
 
 
 const myRoutinesList = (props) => {
+    const { routineId } =useParams();
     const { setRoutines, setActivities } = props;
     const [myRoutines, setMyRoutines] = useState([]);
     useEffect(async () => {
         const activities = await getActivities();
-        setActivities(activities);
+        attachActivities(activities);
         const routines = await getRoutines();
         setRoutines(routines);
         const myRoutines = await getRoutinesByUser();
@@ -18,7 +19,7 @@ const myRoutinesList = (props) => {
     return (
         <div id="myRoutinesPage">
             <h1 id="myRoutinesPageTitle">MY ROUTINES</h1>
-            <Link to='/createRoutine'>
+            <Link to='/createNewRoutine'>
                 <button id='newRoutineButton'>Create New Routine</button>
             </Link>
             <div id='routinesList'>
