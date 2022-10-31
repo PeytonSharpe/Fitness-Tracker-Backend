@@ -1,26 +1,24 @@
 import React, { useState } from 'react';
-import { loginUser } from '../api';
-import { Link } from 'react-router-dom';
-// import { navigate } from 'react-router-dom';
-
+import { loginUser} from '../api';
 
 const Login = ({ setToken, navigate }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
+    
     const handleSubmit = async () => {
-        const results = await loginUser(username, password);
-        if (results.success) {
-            setToken(results.data.token);
-            window.localStorage.setItem('token', results.data.token);
+        const result = await loginUser(username, password);
+        if (result.success) {
+            setToken(result.data.token);
+            window.localStorage.setItem('token', result.data.token);
             navigate('/routines');
         } else {
-            console.log(results.error.message)
+            window.alert('You must register before loggin in.')
+            navigate('/register');
         }
     }
     return (
         <div>
-            <h2>Please login so we can get trackin'!</h2>
+            <h2>Please login to start your trackr!</h2>
             <form onSubmit={(event) => {
                 event.preventDefault();
                 handleSubmit();
@@ -33,7 +31,7 @@ const Login = ({ setToken, navigate }) => {
                     type='password'
                     placeholder='Enter Password'
                     onChange={(event) => setPassword(event.target.value)} />
-                <button type='submit'><Link to='/routines'>Submit</Link></button>
+                <button type='submit'>Submit</button>
                 
             </form>
         </div>

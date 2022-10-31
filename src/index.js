@@ -57,13 +57,13 @@ const App = () => {
         }
     }
 
-    // useEffect(() => {
-    //     fetchRoutines()
-    // }, [token])
+    useEffect(() => {
+        fetchRoutines()
+    }, [token])
 
-    // useEffect(() => {
-    //     getMe();
-    // }, [token])
+    useEffect(() => {
+        getMe();
+    }, [token])
 
  
     return (
@@ -127,6 +127,7 @@ const App = () => {
                     path='/login'
                     element={<Login
                         setToken={setToken}
+                        token={token}
                         navigate={navigate}
                     />} 
                 />
