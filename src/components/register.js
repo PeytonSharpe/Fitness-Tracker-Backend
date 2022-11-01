@@ -1,41 +1,67 @@
 import React, { useState } from 'react';
 import { registerUser } from '../api';
-const Register = ({ setToken, navigate }) => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
 
-    const handleSubmit = async () => {
-        const result = await registerUser(username, password);
-        if (result.success) {
-            setToken(result.data.token);
-            window.localStorage.setItem('token', result.data.token);
-            navigate('/profile');
-        } else {
-            window.alert('You are already registered.  Please login.')
-            navigate('/login');
-        }
+const RegisterUser = () => {
+    const [user, setUser] = useState("");
+    const [password, setPassword]= useState("");
+
+    const handleRegisterClick = async (event) => {
+        event.preventDefault();
+        const registerInfo = {
+            user: user,
+            password: password
+        };
+
+        let firstPassword = document.querySelector('.password').value,
+            confirmPassword = document.querySelector('.confirm_password').value;
+          
+            if (firstPassword == "") {
+                alert("Password field cannot be empty");
+                return false;
+            } 
+            
+            if (firstPassword != confirmPassword) {
+                alert("Passwords did not match, please try again!");
+                return false
+            }
+
+            const newUser = await registerNewUser(registerInfo);
+            alert(newUser.message)
+
+            setUser("");
+            setPassword("");
+            document.querySelector('.confirm_password').value='';
+            window.location.reload(false);
+    };
+
+    const handleUserChange = (event) => {
+        setUser(event.target.value);
     }
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value);
+    }
+ 
 
     return (
-        <form onSubmit={(event) => {
-            event.preventDefault();
-            handleSubmit();
-        }}>
-            <label>Enter Username</label><br></br>
-            <input
-                type='text'
-                onChange={(event) => setUsername(event.target.value)}
+      <div id='registerPage'>
+            <h1>REGISTER NEW USER</h1>
+        <form>
+            <label for="username">Username: </label>
+            <input type="text" id="username" placeholder="Username" value={user} onChange={handleUserChange}  />
+            <br/>
+            <label for="password">Password: </label>
+            <input type="password" className="password" placeholder="Password" id="password" value={password}
+             onChange={handlePasswordChange}/>
+            <br/>
+            <label for="confirm-password">Confirm Password: </label>
+            <input type="password" className="confirm_password" placeholder="Re-Enter Password" id="confirm-password"
             />
-            <br></br>
-            <label>Enter Password</label><br></br>
-            <input
-                type='password'
-                onChange={(event) => setPassword(event.target.value)}
-            />
-            <br></br>
-            <button type='submit'>Submit</button>
+             <br/>
+             <br/>
+             <button onClick={handleRegisterClick}>Register</button>  
         </form>
-    )
-}
+      </div>    
+    );
+};
 
-export default Register;
+export default RegisterUser;

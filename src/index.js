@@ -3,14 +3,15 @@ import ReactDOM from 'react-dom/client';
 import { Route, BrowserRouter, Routes, useNavigate } from 'react-router-dom';
 import './style.css';
 import {
-    Activites,
+    Activities,
     Home,
     Login,
-    Myroutine,
+    My_routines,
     Navbar,
     Profile,
     Register,
     Routines,
+    CreateNewRoutine,
     } from './components';
 
 import {
@@ -18,11 +19,6 @@ import {
     getUserDetails
 } from './api';
 
-// const App = () => {
-    // return(
-        // <h1> Fitness Tracker </h1>
-    // )
-// }
 
 const App = () => {
     const [token, setToken] = useState('');
@@ -38,8 +34,8 @@ const App = () => {
     }
 
     async function fetchRoutines() {
-        const results = await getRoutines(token)
-        setRoutines(results.data.posts);
+        const results = await getRoutines()
+        setRoutines(results.data);
     }
 
     async function getMe() {
@@ -61,13 +57,13 @@ const App = () => {
         }
     }
 
-    useEffect(() => {
-        fetchRoutines()
-    }, [token])
+    // useEffect(() => {
+    //     fetchRoutines()
+    // }, [token])
 
-    useEffect(() => {
-        getMe();
-    }, [token])
+    // useEffect(() => {
+    //     getMe();
+    // }, [token])
 
  
     return (
@@ -87,14 +83,31 @@ const App = () => {
                         fetchRoutines={fetchRoutines}
                     />} 
                 />
-                <Route
-                    exact path='/routines/create-routine'
-                    element={<createRoutine
+                 <Route
+                    path='/activities'
+                    element={<Activities
                         token={token}
-                        fetchPosts={fetchRoutines}
+                        activities={Activities}
+                    />} 
+                />
+                <Route
+                    path='/My_routines'
+                    element={<Routines
+                        token={token}
+                        My_routines={My_routines}
                         navigate={navigate}
+                        fetchRoutines={fetchRoutines}
                     />}
-                /> 
+                />
+                <Route
+                    path='/CreateNewRoutine'
+                    element={<createNewRoutine
+                        token={token}
+                        createNewRoutine={CreateNewRoutine}
+                        navigate={navigate}
+                        fetchRoutines={fetchRoutines}
+                    />}
+                />
                  <Route
                     path='/profile'
                     element={<Profile 

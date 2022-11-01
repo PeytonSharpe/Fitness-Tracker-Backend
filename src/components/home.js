@@ -1,5 +1,4 @@
 import React from 'react';
-import { loginUser } from '../api';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
