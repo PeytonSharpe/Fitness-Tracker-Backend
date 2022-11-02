@@ -57,14 +57,7 @@ const App = () => {
         }
     }
 
-    // useEffect(() => {
-    //     fetchRoutines()
-    // }, [token])
-
-    // useEffect(() => {
-    //     getMe();
-    // }, [token])
-
+    
  
     return (
         <div>
