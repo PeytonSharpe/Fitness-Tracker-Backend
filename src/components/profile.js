@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Profile = ({ user, username }) => {
-    const messages = user.messages;
-    const userID = user._id;
+    // const messages = user.messages;
+    // const userID = user._id;
 
     return (
         <div>
