@@ -25,7 +25,7 @@ const RegisterUser = () => {
                 return false
             }
 
-            const newUser = await registerNewUser(registerInfo);
+            const newUser = await registerUser(registerInfo);
             alert(newUser.message)
 
             setUser("");
