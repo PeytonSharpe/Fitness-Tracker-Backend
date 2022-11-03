@@ -7,7 +7,7 @@ const My_routines = () => {
   const [myRoutines, setMyRoutines] = useState([]);
   const getUserInfo = async () => {
     try {
-      const result = await getUser(token);
+      const result = await getUser();
       console.log(result);
       if (result) {
         console.log('222222');
