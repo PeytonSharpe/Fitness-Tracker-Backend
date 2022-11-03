@@ -29,7 +29,7 @@ const Activities = () => {
                 setCreateNew(true);
               }}
             >
-              <span class="material-icons">post_add</span>
+              <span className="material-icons"></span>
               Create New Activity
             </button>
             {createNew ? (

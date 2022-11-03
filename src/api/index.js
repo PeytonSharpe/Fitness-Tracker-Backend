@@ -2,7 +2,7 @@ export const baseURL = 'https://fitnesstrac-kr.herokuapp.com/api/'
 
 //Post /api/users/register
 export const registerUser = async (userObject) => {
-  const url = `${baseURL}/users/register`;
+  const url = `${baseURL}users/register`;
   const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -24,7 +24,7 @@ export const registerUser = async (userObject) => {
 //POST /api/users/login
 export const loginUser = async (username, password) => {
   try {
-    const response = await fetch(`${baseURL}/users/login`,{
+    const response = await fetch(`${baseURL}users/login`,{
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -44,27 +44,47 @@ export const loginUser = async (username, password) => {
 }
 
 //GET /api/users/me
-export const getUserDetails = async (token) => {
+export const getUser = async (token) => {
+  console.log(JSON.stringify(token))
+  console.log(token)
   try {
-    const response = await fetch(`${baseURL}/users/me`, {
+    const response = await fetch(`${baseURL}users/me`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
     })
-    
-    const result = await response.json();
-    return result;
-    
-  } catch(ex) {
-    console.log('error getting users details')
+    console.log(response)
+
+    const results = await response.json();
+    console.log(results)
+    return results;
+  } catch (ex) {
+    console.log('Error getting user')
   }
 }
+
+export const getUserRoutine = async (username) => {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await fetch(`${baseURL}users/${username}/routines`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
 
 //GET /api/users/:username/routines
 export const getAllRoutines = async () => {
   try {
-    const response = await fetch(`${baseURL}/routines`, {
+    const response = await fetch(`${baseURL}routines`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -75,6 +95,7 @@ export const getAllRoutines = async () => {
     console.error('error getting all routines')
   }
 }
+
 
 //GET /api/activities
 export const getAllActivities = async () => {
@@ -94,7 +115,7 @@ export const getAllActivities = async () => {
 //POST /api/activities
 export const createActivity = async (token, {name, description})=> {
   try {
-    const response = await fetch(`${baseURL}/activities`, {
+    const response = await fetch(`${baseURL}activities`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -116,7 +137,7 @@ export const createActivity = async (token, {name, description})=> {
 //PATCH /api/activities/:activityId
 export const updateActivity = async (token, { activityId, activityName, description})=> {
   try { 
-    const response = await fetch(`${baseURL}/activities/${activityId}`, {
+    const response = await fetch(`${baseURL}activities/${activityId}`, {
       method: "PATCH",
       headers: {
         'Content-Type': 'application/json',
@@ -141,7 +162,7 @@ export const updateActivity = async (token, { activityId, activityName, descript
 //GET /api/activities/:activityId/routines
 export const getActivities = async () =>  {
   try{
-    const response = await fetch(`${baseURL}/activities`, {
+    const response = await fetch(`${baseURL}activities`, {
       headers: {
         'Content-Type': 'application/json'
       },
@@ -156,7 +177,7 @@ export const getActivities = async () =>  {
 //GET /api/routines
 export const getRoutines = async() => {
   try {
-    const response = await fetch(`${baseURL}/routines`, {
+    const response = await fetch(`${baseURL}routines`, {
       headers: {
         'Content-Type': 'application/json',
       }
@@ -171,16 +192,16 @@ export const getRoutines = async() => {
 //POST /api/routines
 export const createRoutine = async (token, { name, goal, isPublic }) => {
   try {
-    const response = await fetch(`${baseURL}/routines`, {
+    const response = await fetch(`${baseURL}routines`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({
-          name,
-          goal,
-          isPublic
+          name: name,
+          goal: goal,
+          isPublic: isPublic,
       })
     })
     const result = await response.json();
@@ -193,7 +214,7 @@ export const createRoutine = async (token, { name, goal, isPublic }) => {
 //PATCH /api/routines/:routineId
 export const updateRoutine = async (token, { routineId, creatorId, isPublic, routineName, goal})=> {
   try { 
-    const response = await fetch(`${baseURL}/activities/${routineId}`, {
+    const response = await fetch(`${baseURL}activities/${routineId}`, {
       method: "PATCH",
       headers: {
         'Content-Type': 'application/json',
@@ -220,7 +241,7 @@ export const updateRoutine = async (token, { routineId, creatorId, isPublic, rou
 // DELETE /api/routines/:routineId
 export const deleteRoutine = async (token) => {
   try{
-    const response = await fetch(`${baseURL}/routines`, {
+    const response = await fetch(`${baseURL}routines`, {
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json',
@@ -237,7 +258,7 @@ export const deleteRoutine = async (token) => {
 //POST /api/routines/:routineId/activities
 export const routineActivity = async (token, {activityId, count, duration})=> {
   try {
-    const response = await fetch(`${baseURL}/activities`, {
+    const response = await fetch(`${baseURL}activities`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -260,7 +281,7 @@ export const routineActivity = async (token, {activityId, count, duration})=> {
 //PATCH /api/routine_activities/:routineActivityId
 export const updateRoutine_activity = async (token, { activityId, routineId, count, duration})=> {
   try { 
-    const response = await fetch(`${baseURL}/routine_activities/${activityId}`, {
+    const response = await fetch(`${baseURL}routine_activities/${activityId}`, {
       method: "PATCH",
       headers: {
         'Content-Type': 'application/json',
@@ -286,7 +307,7 @@ export const updateRoutine_activity = async (token, { activityId, routineId, cou
 //DELETE /api/routine_activities/:routineActivityId
 export const deleteActivity = async (token) => {
   try{
-    const response = await fetch(`${baseURL}/rouutine_activities/`, {
+    const response = await fetch(`${baseURL}routine_activities/`, {
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json',
@@ -303,7 +324,7 @@ export const deleteActivity = async (token) => {
 export const getRoutinesByUser = async () => {
   const user = await testAuthentication(localStorage.getItem('fitness_tracker_JWT'));
   const username = user.username;
-  const url = `${baseURL}/users/${username}/routines`;
+  const url = `${baseURL}users/${username}/routines`;
   const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -319,9 +340,25 @@ export const getRoutinesByUser = async () => {
   return response;
 }
 
+export const getMyRoutines = async (token, user) => {
+  try {
+    console.log(user)
+    const response = await fetch(`${baseURL}users/${user}/routines`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    const results = response.json();
+    return results;
+  } catch (ex) {
+    console.log('Error getting my routines')
+  }
+}
+
 export async function editRoutine(token, routineId, name, goal, isPublic) {
   try {
-      const response = await fetch(`${BASE_URL}/routines/${routineId}`, {
+      const response = await fetch(`${baseURL}routines/${routineId}`, {
           method: "PATCH",
           headers: {
               'Content-Type': 'application/json',

@@ -22,7 +22,6 @@ const Navbar = ({ logout, token }) => {
             <nav>
                 <Link to='/'>Home</Link>
                 <Link to={routinesTarget}>Routines</Link>
-                <Link to='/profile'>Profile</Link>
                 <Link to='/activities'>Activities</Link>
                 <Link to={myRoutinesTarget}>Myroutines</Link>
                 {

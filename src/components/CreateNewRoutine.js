@@ -9,15 +9,22 @@ const createNewRoutine = ({ token, fetchRoutines, navigate }) => {
     const { routineId} = useParams();
     
     async function addRoutine() {
-    const newRoutine = {
-        name,
-        goal,
-        _id: routineId
+        console.log(routineId);
+        const newRoutine = {
+            name: name,
+            goal: goal,
+            isPublic: true
+
+        }
+
+        const results = await createRoutine(token, newRoutine)
+        fetchRoutines();
+        navigate(`/routines`)
     }
 
-    const results = await createRoutine(token, newRoutine)
-    fetchRoutines();
-    navigate(`/routines`)
+    async function fetchRoutines() {
+        const results = await getRoutines()
+            setRoutines(results.data);
     }
 
     return (

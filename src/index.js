@@ -8,39 +8,57 @@ import {
     Login,
     My_routines,
     Navbar,
-    Profile,
     Register,
     Routines,
     CreateNewRoutine,
     } from './components';
 
 import {
-    getRoutines,
-    getUserDetails
+    getAllRoutines,
+    getMyRoutines,
+    EditRoutine,
+    CreateActivity,
+    DeleteRoutine,
+    getAllActivities,
+    getUser
+    
 } from './api';
 
 
 const App = () => {
     const [token, setToken] = useState('');
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState('');
+    const [activities, setActivities] = useState([]);
     const [routines, setRoutines] = useState([]);
+    const [Myroutines, setMyRoutines] = useState([]);
     
     const navigate = useNavigate();
 
     function logout() {
-        window.localStorage.removeItem('token');
+        window.localStorage.removeItem('fitness_tracker_JWT');
         setToken('');
-        setUser({});
+        setUser('');
     }
 
     async function fetchRoutines() {
-        const results = await getRoutines()
+        const results = await getAllRoutines()
         setRoutines(results.data);
     }
 
-    async function getMe() {
-        const storedToken = window.localStorage.getItem('token');
+    async function fetchActivities() {
+        const results = await getAllActivities()
+        setActivities(results);
+    }
 
+    async function fetchMyRoutines() {
+        if (user) {
+            const results = await getMyRoutines(token, user)
+            setMyRoutines(results);
+        }
+    }
+
+    async function getMe() {
+        const storedToken = window.localStorage.getItem('fitness_tracker_JWT');
         if (!token) {
             if (storedToken) {
                 setToken(storedToken);
@@ -48,14 +66,24 @@ const App = () => {
             return;
         }
 
-        const results = await getUserDetails(token)
-        console.log(results)
-        if (results.success) {
-            setUser(results.data);
+        const { username } = await getUser(token)
+        if ({ username }) {
+            setUser(username);
         } else {
-            console.log(results.error.message);
+            console.log('Error setting user');
         }
     }
+        
+   
+    useEffect(() => {
+        getMe();
+        fetchRoutines();
+        fetchActivities();
+    }, [token])
+
+    useEffect(() => {
+        fetchMyRoutines();
+    }, [token, user])
 
     
  
@@ -85,9 +113,9 @@ const App = () => {
                 />
                 <Route
                     path='/My_routines'
-                    element={<Routines
+                    element={<My_routines
                         token={token}
-                        My_routines={My_routines}
+                        My_routines={Myroutines}
                         navigate={navigate}
                         fetchRoutines={fetchRoutines}
                     />}
@@ -99,13 +127,6 @@ const App = () => {
                         createNewRoutine={CreateNewRoutine}
                         navigate={navigate}
                         fetchRoutines={fetchRoutines}
-                    />}
-                />
-                 <Route
-                    path='/profile'
-                    element={<Profile 
-                        user={user}
-                        token={token}
                     />}
                 />
                  <Route

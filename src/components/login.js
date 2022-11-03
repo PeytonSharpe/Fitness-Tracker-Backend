@@ -1,41 +1,53 @@
-import React, { useState } from 'react';
-import { loginUser } from '../api';
+import React, { useState } from "react";
+import { loginUser } from "../api";
 
-const Login = ({ setToken, navigate }) => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    
-    const handleSubmit = async () => {
-        const result = await loginUser(username, password);
-        if (result.success) {
-            setToken(result.data.token);
-            window.localStorage.setItem('token', result.data.token);
-            navigate('/routines');
-        } else {
-            window.alert('You must register before loggin in.')
-            navigate('/register');
-        }
+const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleOnChange = (event) => {
+    const changed = event.target.id;
+    if (changed === "username") {
+      setUsername(event.target.value);
+    } else {
+      setPassword(event.target.value);
     }
-    return (
-        <div>
-            <h2>Please login to start your trackr!</h2>
-            <form onSubmit={(event) => {
-                event.preventDefault();
-                handleSubmit();
-            }}>
-                <input
-                    type='text'
-                    placeholder='Enter Username'
-                    onChange={(event) => setUsername(event.target.value)} />
-                <input
-                    type='password'
-                    placeholder='Enter Password'
-                    onChange={(event) => setPassword(event.target.value)} />
-                <button type='submit'>Submit</button>
-                
-            </form>
-        </div>
-    )
-}
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const token = await loginUser(username, password);
+    console.log(token, 'login component')
+    localStorage.setItem("token", token);
+    window.location.assign("/");
+  };
+
+  return (
+    <div className="login-form">
+      <h2 className="form-title">Login</h2>
+      <form onSubmit={handleSubmit} className="login-box">
+        <label>Username:</label>
+        <input
+          id="username"
+          onChange={handleOnChange}
+          value={username}
+          placeholder="username"
+        />
+
+        <label>Password:</label>
+        <input
+          id="password"
+          onChange={handleOnChange}
+          value={password}
+          placeholder="password"
+        />
+
+        <button type="submit" id="login-button">
+          Login
+        </button>
+      </form>
+    </div>
+  );
+};
 
 export default Login;
