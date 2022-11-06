@@ -1,11 +1,12 @@
 import React from "react";
 import { deleteRoutine } from "../api";
 
-const DeleteRoutine = () => {
+const DeleteRoutine = (routineId) => {
     const handleDelete = async (event) => {
         event.preventDefault()
-        const token = localStorage.getItem('fitness_tracker_JWT')
-        deleteRoutine(token, event.target.id)
+        const token = window.localStorage.getItem('fitness_tracker_JWT')
+        console.log(routineId)
+        deleteRoutine(token, routineId)
       }
     return ( 
         <div>

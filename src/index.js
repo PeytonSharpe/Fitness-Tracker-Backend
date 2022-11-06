@@ -11,16 +11,17 @@ import {
     Register,
     Routines,
     CreateNewRoutine,
+    CreateActivity
     } from './components';
 
 import {
     getAllRoutines,
     getMyRoutines,
     EditRoutine,
-    CreateActivity,
     DeleteRoutine,
     getAllActivities,
-    getUser
+    getUser,
+    createActivity
     
 } from './api';
 
@@ -47,7 +48,7 @@ const App = () => {
 
     async function fetchActivities() {
         const results = await getAllActivities()
-        setActivities(results);
+        setActivities(results.data);
     }
 
     async function fetchMyRoutines() {
@@ -63,10 +64,10 @@ const App = () => {
             if (storedToken) {
                 setToken(storedToken);
             }
+
             return;
         }
-
-        const { username } = await getUser(token)
+        const { username } = await getUser(storedToken)
         if ({ username }) {
             setUser(username);
         } else {
@@ -108,8 +109,18 @@ const App = () => {
                     path='/activities'
                     element={<Activities
                         token={token}
+                        navigate={navigate}
                         activities={Activities}
                     />} 
+                />
+                <Route
+                    path='/createActivity'
+                    element={<createActivity
+                        token={token}
+                        createActivity={CreateActivity}
+                        navigate={navigate}
+                        fetchActivities={fetchActivities}
+                    />}
                 />
                 <Route
                     path='/My_routines'

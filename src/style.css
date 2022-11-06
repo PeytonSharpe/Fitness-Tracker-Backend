@@ -5,7 +5,7 @@ Body {
   font-family: 'Dosis', sans-serif;
   text-align: center;
   color: black;
-  background-color: #d9d893;
+  background-color: #535267;
   width: 600px;
   margin-inline-start: auto;
   margin-inline-end: auto;
@@ -22,7 +22,7 @@ nav {
   font-weight: bold;
   align-items: center;
   padding: 0.5rem 1rem;
-  background: #7ea6a4;
+  background: #3f22b4;
 }
 
 button {
@@ -32,7 +32,7 @@ button {
   margin-bottom: 3rem;
   font-size: 30px;
   font-weight: bold;
-  background-color: #c3e0df;
+  background-color: #3f22b4;
   text-align: center;
   border-radius: 15px;
 }
@@ -51,7 +51,7 @@ form {
   text-align: left;
 }
 
-/* #app {
+ #app { 
   height: 100%;
 }
 
@@ -67,7 +67,7 @@ form {
   overflow: hidden;
 
   background: #444;
-}
+} 
 
 
 
@@ -136,7 +136,7 @@ body
 
 h1 {
     margin-top: 3rem;
-    font-size:5rem;
+    font-size:2rem;
 }
 
 #Navbar {
@@ -149,27 +149,26 @@ h1 {
     width: 800px;
     margin: 0 auto
 }
-*/
-/* #routines {  */
 
-/* /display:flex; */ 
-/* flex-direction: row; */
-/* justify-items: space-around;
+#routines { 
+display:flex; 
+flex-direction: row;
+justify-items: space-around;
     border-radius: 0.4rem;
     background-color: white;
     font-size: 3rem;
     
 }
 
-#activities { */
-/* display:flex; */
-/* flex-direction: row; */
-/* justify-items: space-around;
+#activities { 
+display:flex;
+flex-direction: row;
+justify-items: space-around; 
     border-radius: 0.4rem;
     background-color: white;
     font-size: 3rem;
-} */
+} 
 
-/* button:hover {
+button:hover { 
     background-color: rgb(0, 128, 43);
-} */
+} 

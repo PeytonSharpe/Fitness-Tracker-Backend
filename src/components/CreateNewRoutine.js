@@ -1,30 +1,31 @@
 import React, { useState } from 'react';
-import { createRoutine } from '../api';
-import { useParams } from 'react-router-dom';
+import { createRoutine, getRoutines } from '../api';
+import { useParams, useNavigate } from 'react-router-dom';
 
 
-const createNewRoutine = ({ token, fetchRoutines, navigate }) => {
+const createNewRoutine = (token, { fetchRoutines, navigate }) => {
     const [name, setName] = useState('');
     const [goal, setGoal] = useState('');
+    const [routines, setRoutines] = useState([]);
     const { routineId} = useParams();
-    
+    const navigate1 = useNavigate();
+
+    async function fetchRoutines() {
+
+        const results = await getRoutines()
+        setRoutines(results.data);
+    }
     async function addRoutine() {
-        console.log(routineId);
         const newRoutine = {
             name: name,
             goal: goal,
             isPublic: true
 
         }
-
-        const results = await createRoutine(token, newRoutine)
+        const storedToken = window.localStorage.getItem('fitness_tracker_JWT');
+        const results = await createRoutine(storedToken, newRoutine)
         fetchRoutines();
-        navigate(`/routines`)
-    }
-
-    async function fetchRoutines() {
-        const results = await getRoutines()
-            setRoutines(results.data);
+        navigate1(`/routines`)
     }
 
     return (

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { createActivity, getAllActivities } from "../api";
-import './CreateActivity.js'
+import CreateActivity from "./CreateActivity";
 
 const Activities = () => {
   const [activity, setActivity] = useState([]);
   const [createNew, setCreateNew] = useState(false);
   const getActivities = async () => {
     const activity = await getAllActivities();
-    console.log(activity, "here");
     setActivity(activity);
   };
   useEffect(() => {
@@ -21,6 +20,7 @@ const Activities = () => {
   return (
     <div>
       <>
+      <CreateActivity getActivities={getActivities} setActivity={setActivity} />
         {localStorage.getItem("token") ? (
           <div className="create-new-activity">
             <button

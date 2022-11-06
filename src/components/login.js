@@ -16,9 +16,10 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const token = await loginUser(username, password);
+    const res = await loginUser(username, password);
+    const token = res['token']
     console.log(token, 'login component')
-    localStorage.setItem("token", token);
+    window.localStorage.setItem('fitness_tracker_JWT', token);
     window.location.assign("/");
   };
 

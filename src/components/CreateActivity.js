@@ -8,10 +8,13 @@ const CreateActivity = ({activity, setActivity}) => {
         event.preventDefault();
         const name = event.target[0].value;
         const description = event.target[1].value;
-        const userActivities = await createActivity(name, description);
-        if(userActivities) {
-            setActivity([userActivities, ...activity])
-        }
+        const storedToken = window.localStorage.getItem('fitness_tracker_JWT');
+        console.log(name, description, storedToken)
+        const userActivities = await createActivity(storedToken, name, description);
+        // if(userActivities) {
+        //     setActivity([userActivities, ...activity])
+        // }
+        console.log('yo')
         navigate("/activities")
     }
 
